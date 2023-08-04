@@ -40,7 +40,7 @@ functions:
   google-cal-check:
     handler: lambda_function.handler
     events:
-      - httpAPI:
+      - http:
           path: /google-cal-check
           method: get
           private: true  # This enables apiKeyRequired
