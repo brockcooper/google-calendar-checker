@@ -10,7 +10,8 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 BUCKET_NAME = os.environ.get("BUCKET_NAME")
 FILE_NAME = os.environ.get("FILE_NAME")
 s3 = boto3.client('s3')
-
+print(BUCKET_NAME)
+print(FILE_NAME)
 
 def get_s3_json_content(bucket, key):
     object_content = s3.get_object(Bucket=bucket, Key=key)['Body'].read()
