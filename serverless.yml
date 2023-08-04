@@ -1,0 +1,48 @@
+service: google-calendar-checker-function
+
+frameworkVersion: "2"
+variablesResolutionMode: 20210326
+
+plugins:
+  - serverless-python-requirements
+  - serverless-deployment-bucket
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+  stage: "${self:provider.stage}"
+
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: ${env:AWS_DEFAULT_REGION, 'us-west-2'}
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+  environment:
+    BUCKET: ${env:BUCKET}
+    FILE: ${env:FILE}
+    EMAIL: ${env:EMAIL}
+  iamRoleStatements: # permissions for all of your functions can be set here
+    - Effect: "Allow"
+      Action:
+        - s3:GetObject
+      Resource: "arn:aws:s3:::${env:BUCKET}/*"
+
+package:
+  exclude:
+    - .git/**
+    - .env/**
+    - node_modules/**
+
+functions:
+  ogle-calendar-checker-function:
+    handler: lambda_function.handler
+    events:
+      - httpApi:
+          path: /google-calendar-checker
+          method: get
+          authorizer: aws_iam
+    timeout: 30
+    memorySize: 1024
