@@ -1,4 +1,4 @@
-service: google-calendar-checker-function
+service: google-cal-check
 
 frameworkVersion: "3"
 variablesResolutionMode: 20210326
@@ -37,11 +37,11 @@ package:
     - node_modules/**
 
 functions:
-  ogle-calendar-checker-function:
+  google-cal-check:
     handler: lambda_function.handler
     events:
       - httpApi:
-          path: /google-calendar-checker
+          path: /google-cal-check
           method: get
-    timeout: 30
+    timeout: 300
     memorySize: 1024
