@@ -7,10 +7,9 @@ from googleapiclient.errors import HttpError
 from google.oauth2 import service_account
 
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
-BUCKET_NAME = os.environ.get("BUCKET_NAME")
-FILE_NAME = os.environ.get("FILE_NAME")
+BUCKET_NAME = os.environ.get("BUCKET")
+FILE_NAME = os.environ.get("FILE")
 s3 = boto3.client('s3')
-
 
 def get_s3_json_content(bucket, key):
     object_content = s3.get_object(Bucket=bucket, Key=key)['Body'].read()
@@ -46,16 +45,22 @@ def handler(event, context):
                 events_list.append(event_json)
 
         events_json = {"events": events_list, "message": "success"}
-        events_json = json.dumps(events_json)
+        statusCode = 200
 
     except HttpError as error:
         events_json = {"events": [], "message": "fail", "error": 'An error occurred: %s' % error}
+        statusCode = 400
 
-    return events_json
+    response = {
+        'statusCode': statusCode,
+        'body': json.dumps(events_json),
+        'headers': {
+            'Content-Type': 'application/json',
+        },
+        'isBase64Encoded': False
+    }
 
-# Todo:
-# 6. Turn it into lambda funciton
-# 7. Turn it into API
+    return response
 
 if __name__ == '__main__':
     event = {}

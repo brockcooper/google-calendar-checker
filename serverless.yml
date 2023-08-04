@@ -1,6 +1,6 @@
-service: google-calendar-checker-function
+service: google-cal-check
 
-frameworkVersion: "2"
+frameworkVersion: "3"
 variablesResolutionMode: 20210326
 
 plugins:
@@ -37,12 +37,12 @@ package:
     - node_modules/**
 
 functions:
-  ogle-calendar-checker-function:
+  google-cal-check:
     handler: lambda_function.handler
     events:
-      - httpApi:
-          path: /google-calendar-checker
+      - http:
+          path: /google-cal-check
           method: get
-          authorizer: aws_iam
-    timeout: 30
+          private: true  # This enables apiKeyRequired
+    timeout: 300
     memorySize: 1024
