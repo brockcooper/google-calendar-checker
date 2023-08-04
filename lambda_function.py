@@ -53,14 +53,14 @@ def handler(event, context):
 
     response = {
         'statusCode': statusCode,
-        'body': events_json,
+        'body': json.dumps(events_json),
         'headers': {
             'Content-Type': 'application/json',
         },
         'isBase64Encoded': False
     }
 
-    return json.dumps(response)
+    return response
 
 if __name__ == '__main__':
     event = {}
