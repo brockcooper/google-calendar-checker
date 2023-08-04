@@ -43,5 +43,6 @@ functions:
       - httpApi:
           path: /google-cal-check
           method: get
+          private: true  # This enables apiKeyRequired
     timeout: 300
     memorySize: 1024
