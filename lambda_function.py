@@ -7,8 +7,8 @@ from googleapiclient.errors import HttpError
 from google.oauth2 import service_account
 
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
-BUCKET_NAME = os.environ.get("BUCKET_NAME")
-FILE_NAME = os.environ.get("FILE_NAME")
+BUCKET_NAME = os.environ.get("BUCKET")
+FILE_NAME = os.environ.get("FILE")
 s3 = boto3.client('s3')
 print(BUCKET_NAME)
 print(FILE_NAME)
