@@ -43,6 +43,5 @@ functions:
       - httpApi:
           path: /google-calendar-checker
           method: get
-          authorizer: aws_iam
     timeout: 30
     memorySize: 1024
