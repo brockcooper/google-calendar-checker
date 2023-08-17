@@ -66,7 +66,7 @@ void loop() {
       Serial.println("Busy");
       digitalWrite(ledPin, HIGH);
       digitalWrite(ledPin2, HIGH);
-      delay(5.0 * 60 * 1000);
+      delay(5.0 * 60 * 1000); // Wait for 5 minutes before checking again
       Serial.println("Check if still busy...");
 
     } else if (response.indexOf("\"work_hours\": false") != -1){
@@ -74,7 +74,7 @@ void loop() {
       Serial.println("Stop checking until morning");
       digitalWrite(ledPin, LOW);
       digitalWrite(ledPin2, LOW);
-      delay(14.0 * 60 * 60 * 1000);
+      delay(14.0 * 60 * 60 * 1000); // Wait for 14 hours before checking again
       Serial.println("Start to check back in the morning...");
 
     } else if (response.indexOf("\"busy\": false") != -1){
@@ -82,7 +82,7 @@ void loop() {
       Serial.println("Not Busy");
       digitalWrite(ledPin, LOW);
       digitalWrite(ledPin2, LOW);
-      delay(5.0 * 60 * 1000);
+      delay(5.0 * 60 * 1000); // Wait for 5 minutes before checking again
       Serial.println("Check if still not busy...");
 
     } else {
