@@ -49,7 +49,7 @@ def handler(event, context):
                 busy = True
 
             # Tell Arduino to stop checking at night (between 6pm and 8am)
-            if current_time.hour > 17 or current_time.hour < 8:
+            if current_time.hour > 17 or current_time.hour < 6:
                 work_hours = False
 
             # Don't include all day events
