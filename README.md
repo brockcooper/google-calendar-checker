@@ -47,3 +47,7 @@ main < dev < feature_branch_3
 * `serverless.yml`: Uses the serverless framework to deploy API Gateway and Lambda to AWS. See `.github/workflows/deploy.yml` for the code that runs to deploy with serverless.
 * `lambda_function.py`: This is the actual Python code that will run on the Lambda function
 * `google-cal-checker-arduino`: This the Arduino code, meant for an Arduino Uno WiFi Rev 2, that will check your API and turn on an LED light to indicate if you are in a meeting or not.
+
+## Personal Note
+
+I made this project for a requirement for the Hacker badge in the Strenous Life Program. This project ended up being quite a big stretch having never worked with a Google API, figuring out how to integrate my work calendar to my personal program, working with Google Cloud and service accounts with a Gmail account, and having never touched an Arduino or other hardware-based project. It ended up being an huge learning experience integrating all the various pieces together to make this work, even though the code isn't too complicated. I ended up connecting the Arduino to a real power source, putting it in a little box with a Meeting In Progress note written on it, so now my kids can be aware of when I'm on a meeting before barging into my home office.
