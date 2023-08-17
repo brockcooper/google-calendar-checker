@@ -46,5 +46,4 @@ main < dev < feature_branch_3
 * `requirements.txt`: Lists the required packages needed to run the code locally and deploy to Lambda. You can run `pip install -r requirements.txt` on your local environment to download the required packages for your local development use
 * `serverless.yml`: Uses the serverless framework to deploy API Gateway and Lambda to AWS. See `.github/workflows/deploy.yml` for the code that runs to deploy with serverless.
 * `lambda_function.py`: This is the actual Python code that will run on the Lambda function
-
-
+* `google-cal-checker-arduino`: This the Arduino code, meant for an Arduino Uno WiFi Rev 2, that will check your API and turn on an LED light to indicate if you are in a meeting or not.
