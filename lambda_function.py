@@ -1,4 +1,5 @@
 import datetime
+import pytz
 import os.path
 import json
 import boto3
@@ -31,6 +32,8 @@ def handler(event, context):
         events = events_result.get('items', [])
 
         events_list = []
+        busy = False
+        current_time = datetime.datetime.now(pytz.timezone('US/Mountain'))
 
         # Returns the start and name of the next 15 events
         for event in events:
@@ -40,15 +43,19 @@ def handler(event, context):
             end = event['end'].get('dateTime', event['end'].get('date'))
             end_time = datetime.datetime.strptime(end, "%Y-%m-%dT%H:%M:%S%z")
 
+            # Check to see if you're currently busy
+            if start_time < current_time < end_time:
+                busy = True
+
             if not(start_time.hour == end_time.hour and start_time.minute == end_time.minute):
                 event_json = {"start": start, "end": end}
                 events_list.append(event_json)
 
-        events_json = {"events": events_list, "message": "success"}
+        events_json = {"events": events_list, "busy": busy, "message": "success"}
         statusCode = 200
 
     except HttpError as error:
-        events_json = {"events": [], "message": "fail", "error": 'An error occurred: %s' % error}
+        events_json = {"events": [], "busy": False, "message": "fail", "error": 'An error occurred: %s' % error}
         statusCode = 400
 
     response = {
