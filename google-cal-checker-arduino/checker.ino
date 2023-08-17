@@ -66,8 +66,7 @@ void loop() {
       Serial.println("Busy");
       digitalWrite(ledPin, HIGH);
       digitalWrite(ledPin2, HIGH);
-      int milliseconds = 5 * 60 * 1000; // check every 5 minutes
-      delay(milliseconds);
+      delay(5.0 * 60 * 1000);
       Serial.println("Check if still busy...");
 
     } else if (response.indexOf("\"work_hours\": false") != -1){
@@ -75,8 +74,7 @@ void loop() {
       Serial.println("Stop checking until morning");
       digitalWrite(ledPin, LOW);
       digitalWrite(ledPin2, LOW);
-      int milliseconds = 14 * 60 * 60 * 1000; // check back in 14 hours (check at 6pm, then back again at 8am)
-      delay(milliseconds);
+      delay(14.0 * 60 * 60 * 1000);
       Serial.println("Start to check back in the morning...");
 
     } else if (response.indexOf("\"busy\": false") != -1){
@@ -84,8 +82,7 @@ void loop() {
       Serial.println("Not Busy");
       digitalWrite(ledPin, LOW);
       digitalWrite(ledPin2, LOW);
-      int milliseconds = 5 * 60 * 1000; // check every 5 minutes
-      delay(milliseconds);
+      delay(5.0 * 60 * 1000);
       Serial.println("Check if still not busy...");
 
     } else {
@@ -95,10 +92,10 @@ void loop() {
       while (blinker < 50) {
         digitalWrite(ledPin, HIGH);
         digitalWrite(ledPin2, HIGH);
-        delay(1 * 1000); // Blink on and off for 1 second each
+        delay(1.0 * 1000); // Blink on and off for 1 second each
         digitalWrite(ledPin, LOW);
         digitalWrite(ledPin2, LOW);
-        delay(1 * 1000); // Blink on and off for 1 second each
+        delay(1.0 * 1000); // Blink on and off for 1 second each
         blinker = blinker + 1;
       }
     }
