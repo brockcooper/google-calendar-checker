@@ -34,6 +34,7 @@ def handler(event, context):
         events_list = []
         busy = False
         current_time = datetime.datetime.now(pytz.timezone('US/Mountain'))
+        work_hours = True
 
         # Returns the start and name of the next 15 events
         for event in events:
@@ -47,11 +48,16 @@ def handler(event, context):
             if start_time < current_time < end_time:
                 busy = True
 
+            # Tell Arduino to stop checking at night (between 6pm and 8am)
+            if current_time.hour > 17 or current_time.hour < 8:
+                work_hours = False
+
+            # Don't include all day events
             if not(start_time.hour == end_time.hour and start_time.minute == end_time.minute):
                 event_json = {"start": start, "end": end}
                 events_list.append(event_json)
 
-        events_json = {"events": events_list, "busy": busy, "message": "success"}
+        events_json = {"events": events_list, "busy": busy, "work_hours": work_hours, "message": "success"}
         statusCode = 200
 
     except HttpError as error:
