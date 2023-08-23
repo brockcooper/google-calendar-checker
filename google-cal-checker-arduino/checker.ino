@@ -15,11 +15,10 @@ HttpClient client = HttpClient(sslClient, serverAddress, port);
 
 // Plug the LED into pin 3, change if using a different setup
 const int ledPin = 3;
-const int ledPin2 = 4;
 
 void setup() {
   pinMode(ledPin, OUTPUT);
-
+  digitalWrite(ledPin, HIGH);
   // Begin serial communication
   Serial.begin(115200);
 
@@ -64,24 +63,21 @@ void loop() {
     if (response.indexOf("\"busy\": true") != -1) {
 
       Serial.println("Busy");
-      digitalWrite(ledPin, HIGH);
-      digitalWrite(ledPin2, HIGH);
+      digitalWrite(ledPin, LOW);
       delay(5.0 * 60 * 1000); // Wait for 5 minutes before checking again
       Serial.println("Check if still busy...");
 
     } else if (response.indexOf("\"work_hours\": false") != -1){
 
       Serial.println("Stop checking until morning");
-      digitalWrite(ledPin, LOW);
-      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin, HIGH);
       delay(14.0 * 60 * 60 * 1000); // Wait for 14 hours before checking again
       Serial.println("Start to check back in the morning...");
 
     } else if (response.indexOf("\"busy\": false") != -1){
 
       Serial.println("Not Busy");
-      digitalWrite(ledPin, LOW);
-      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin, HIGH);
       delay(5.0 * 60 * 1000); // Wait for 5 minutes before checking again
       Serial.println("Check if still not busy...");
 
@@ -90,11 +86,9 @@ void loop() {
       Serial.println("Error");
       int blinker = 0;
       while (blinker < 50) {
-        digitalWrite(ledPin, HIGH);
-        digitalWrite(ledPin2, HIGH);
-        delay(1.0 * 1000); // Blink on and off for 1 second each
         digitalWrite(ledPin, LOW);
-        digitalWrite(ledPin2, LOW);
+        delay(1.0 * 1000); // Blink on and off for 1 second each
+        digitalWrite(ledPin, HIGH);
         delay(1.0 * 1000); // Blink on and off for 1 second each
         blinker = blinker + 1;
       }
