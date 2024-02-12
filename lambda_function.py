@@ -39,9 +39,14 @@ def handler(event, context):
         # Returns the start and name of the next 15 events
         for event in events:
             start = event['start'].get('dateTime', event['start'].get('date'))
+            # Convert start to a timestamp instead of a full date
+            if len(start) == 10:
+                start = start + 'T00:00:00-07:00'
             start_time = datetime.datetime.strptime(start, "%Y-%m-%dT%H:%M:%S%z")
 
             end = event['end'].get('dateTime', event['end'].get('date'))
+            if len(end) == 10:
+                end = end + 'T00:00:00-07:00'
             end_time = datetime.datetime.strptime(end, "%Y-%m-%dT%H:%M:%S%z")
 
             # Check to see if you're currently busy
