@@ -30,6 +30,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Deploy Dev
       run: |
+        npm install --save-dev serverless
         npm install serverless-deployment-bucket --save-dev
         npm install --save serverless-python-requirements
         npx serverless deploy --stage dev
@@ -43,6 +44,7 @@ jobs:
         EMAIL: ${{ secrets.EMAIL }}
     - name: Deploy Prod
       run: |
+        npm install --save-dev serverless
         npm install serverless-deployment-bucket --save-dev
         npm install --save serverless-python-requirements
         npx serverless deploy --stage prod
