@@ -13,7 +13,6 @@ custom:
 
   stage: "${self:provider.stage}"
 
-
 provider:
   name: aws
   stage: ${opt:stage, 'dev'}
