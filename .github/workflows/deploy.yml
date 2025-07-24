@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8]
+        python-version: [3.11]
 
     steps:
     - uses: actions/checkout@v2
@@ -30,6 +30,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Deploy Dev
       run: |
+        npm install --save-dev serverless@3
         npm install serverless-deployment-bucket --save-dev
         npm install --save serverless-python-requirements
         npx serverless deploy --stage dev
@@ -43,6 +44,7 @@ jobs:
         EMAIL: ${{ secrets.EMAIL }}
     - name: Deploy Prod
       run: |
+        npm install --save-dev serverless@3
         npm install serverless-deployment-bucket --save-dev
         npm install --save serverless-python-requirements
         npx serverless deploy --stage prod

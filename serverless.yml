@@ -17,7 +17,7 @@ provider:
   name: aws
   stage: ${opt:stage, 'dev'}
   region: ${env:AWS_DEFAULT_REGION, 'us-west-2'}
-  runtime: python3.8
+  runtime: python3.11
   lambdaHashingVersion: 20201221
   environment:
     BUCKET: ${env:BUCKET}
